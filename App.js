@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, SafeAreaView } from 'react-native';
+import AboutSlide from './components/about';
+import St from './components/st';
+import Bms from './components/bms';
+import Web from './components/web';
 import { Ionicons } from '@expo/vector-icons';
+
+const componentMap = {
+  BMS: <Bms />,
+  'STARZ ELECTRONICS': <St />,
+  WEB: <Web />,
+  About: <AboutSlide />,
+};
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -19,7 +30,7 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.burgerIcon} onPress={toggleSidebar}>
-          <Ionicons name={isSidebarOpen ? 'close' : 'menu'} size={24} color="black" />
+          <Ionicons name={isSidebarOpen ? 'close' : 'menu'} size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Starz BMS</Text>
         <Image source={require('./starz.png')} style={styles.logo} />
@@ -27,31 +38,19 @@ const App = () => {
       <View style={styles.content}>
         {isSidebarOpen && (
           <View style={styles.sidebar}>
-        <Image source={require('./starz.png')} style={styles.logo2} />
-            <TouchableOpacity
-              style={[styles.sidebarItem, activeItem === 'BMS' && styles.activeItem]}
-              onPress={() => handleItemClick('BMS')}>
-              <Text style={[styles.sidebarItemText, activeItem === 'BMS' && styles.activeItemText]}>BMS</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.sidebarItem, activeItem === 'WEB' && styles.activeItem]}
-              onPress={() => handleItemClick('WEB')}>
-              <Text style={[styles.sidebarItemText, activeItem === 'WEB' && styles.activeItemText]}>WEB</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.sidebarItem, activeItem === 'STARZ ELECTRONICS' && styles.activeItem]}
-              onPress={() => handleItemClick('STARZ ELECTRONICS')}>
-              <Text style={[styles.sidebarItemText, activeItem === 'STARZ ELECTRONICS' && styles.activeItemText]}>STARZ ELECTRONICS</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.sidebarItem, activeItem === 'About' && styles.activeItem]}
-              onPress={() => handleItemClick('About')}>
-              <Text style={[styles.sidebarItemText, activeItem === 'About' && styles.activeItemText]}>About</Text>
-            </TouchableOpacity>
+            <Image source={require('./starz.png')} style={styles.logo2} />
+            {Object.keys(componentMap).map((item) => (
+              <TouchableOpacity
+                key={item}
+                style={[styles.sidebarItem, activeItem === item && styles.activeItem]}
+                onPress={() => handleItemClick(item)}>
+                <Text style={[styles.sidebarItemText, activeItem === item && styles.activeItemText]}>{item}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         )}
         <View style={styles.mainContent}>
-          <Text style={styles.contentText}>{activeItem} Content</Text>
+          {componentMap[activeItem]}
         </View>
       </View>
     </SafeAreaView>
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 25,
     width: 30,
-    color : '#000',
   },
   headerText: {
     fontSize: 24,
@@ -92,8 +90,8 @@ const styles = StyleSheet.create({
   logo2: {
     width: width * 0.26,
     height: width * 0.15,
-    marginHorizontal:width * 0.17,
-    marginVertical:width * 0.05
+    marginHorizontal: width * 0.17,
+    marginVertical: width * 0.05,
   },
   content: {
     flex: 1,
@@ -104,6 +102,7 @@ const styles = StyleSheet.create({
     width: width * 0.6,
     height: '100%',
     paddingTop: 20,
+    zIndex : 50,
   },
   sidebarItem: {
     paddingVertical: 10,
@@ -124,11 +123,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-  },
-  contentText: {
-    fontSize: 18,
-    marginBottom: 20,
-    textAlign: 'center',
   },
 });
 
