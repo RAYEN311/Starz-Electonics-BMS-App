@@ -15,7 +15,7 @@ const componentMap = {
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState('BMS'); // Initially, 'BMS' is active
+  const [activeItem, setActiveItem] = useState('BMS'); // Initially, 'BMS vue' is active
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
