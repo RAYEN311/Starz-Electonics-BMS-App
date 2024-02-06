@@ -23,7 +23,7 @@ const App = () => {
 
   const handleItemClick = (item) => {
     setActiveItem(item);
-    setIsSidebarOpen(false); // Close sidebar after item click
+    setIsSidebarOpen(false);
   };
 
   return (
