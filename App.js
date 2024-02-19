@@ -126,4 +126,6 @@ const styles = StyleSheet.create({
   },
 });
 
+
+// main block 
 export default App;
