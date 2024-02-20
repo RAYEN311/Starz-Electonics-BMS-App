@@ -13,6 +13,8 @@ const componentMap = {
   About: <AboutSlide />,
 };
 
+//ddd
+
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('BMS'); // Initially 'BMS main vue' is active
